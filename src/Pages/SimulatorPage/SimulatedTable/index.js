@@ -5,34 +5,34 @@ import {
   EuiBasicTable,
 } from '@elastic/eui'
 
-const totalMonths = 50 * 12
-
 const SimulatedTable = ({ paramStore }) => {
   const {
     price,
-    profitRate,
-    propertyStructure,
-    elapsedYear,
-    landSize,
-    buildingSize,
-    roadPrice,
+    // profitRate,
+    // propertyStructure,
+    // elapsedYear,
+    // landSize,
+    // buildingSize,
+    // roadPrice,
     selfCapital,
     interestRate,
     loanDuration,
-    rentRate,
-    rentDecreaseRate,
-    managementCost,
-    maintainanceCost,
-    taxRate,
+    // rentRate,
+    // rentDecreaseRate,
+    // managementCost,
+    // maintainanceCost,
+    // taxRate,
   } = paramStore
 
   const loanAmount = price - selfCapital
 
+  const totalMonths = (loanDuration + 10) * 12
+
   console.log(loanAmount)
 
   const items = Array(totalMonths).fill(1).map((_, i) => i)
-    .reduce((acc, month) => {
-      const yearPassed = month % 12 === 0
+    .reduce((acc) => {
+      // const yearPassed = month % 12 === 0
       const repayAmount = acc.length === 0 ? (loanAmount / totalMonths) : (acc[acc.length - 1].remainingAmount / totalMonths)
       const interestableAmount = acc.length === 0 ? loanAmount - repayAmount : acc[acc.length - 1].remainingAmount - repayAmount
       const remainingAmount = interestableAmount * (1 + interestRate / (100 * 12))

@@ -13,12 +13,10 @@ const plugins = [
     '@babel/plugin-proposal-class-properties',
     { loose: true },
   ],
-  'lodash',
 ]
 
 module.exports = {
   presets,
   plugins,
-  // https://github.com/storybookjs/storybook/issues/3346#issuecomment-554270012
   sourceType: 'unambiguous',
 }
