@@ -15,9 +15,9 @@ const formatPrice = value => `${value.toFixed(1)}万円`
 
 const SummaryBlock = ({ paramStore }) => {
   const {
+    price,
     landSize,
     buildingSize,
-    areaProfitRate,
   } = paramStore
   const {
     landPrice,
@@ -64,9 +64,9 @@ const SummaryBlock = ({ paramStore }) => {
           <EuiPanel>
             <EuiStat
               title={formatPrice(profitPrice)}
-              description="収益価格"
+              description="収益価格（DCF）"
               textAlign="right"
-              isLoading={areaProfitRate === 0}
+              isLoading={price === 0}
             />
           </EuiPanel>
         </EuiFlexItem>

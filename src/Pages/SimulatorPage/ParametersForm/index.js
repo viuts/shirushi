@@ -97,15 +97,6 @@ const ParameterForm = ({ paramStore }) => {
             compressed
           />
         </EuiFormRow>
-
-        <EuiFormRow label="エリア利回り" display="columnCompressed">
-          <EuiFieldText
-            value={paramStore.areaProfitRate}
-            onChange={(evt) => { paramStore.saveParams({ areaProfitRate: evt.target.value }) }}
-            append="%"
-            compressed
-          />
-        </EuiFormRow>
       </EuiAccordion>
 
       <EuiSpacer size="s" />

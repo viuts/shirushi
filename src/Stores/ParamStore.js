@@ -22,8 +22,6 @@ class ParamStore {
 
   @observable roadPrice = 0
 
-  @observable areaProfitRate = 0
-
   // Detailed settings
   @observable selfCapital = 0
 

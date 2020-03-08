@@ -10,29 +10,28 @@ export default (props) => {
     elapsedYear,
     buildingSize,
     selfCapital,
-    interestRate,
-    loanDuration,
     landSize,
     roadPrice,
-    areaProfitRate,
   } = _.mapValues(props, Number)
+
+  const items = Cashflow(props)
 
   const landPrice = landSize * roadPrice
   const { year, reconstructurePrice } = Constant.PROPERTY_STRUCTURES[propertyStructure]
   const remainingYear = Math.max(year - elapsedYear, 0)
   const buildingPrice = ((buildingSize * reconstructurePrice) / year) * remainingYear
   const rentIncome = (price * (profitRate / 100))
-  const profitPrice = areaProfitRate > 0 ? rentIncome / (areaProfitRate / 100) : 0
+  const pureProfit = items.reduce((acc, item) => {
+    return acc + (item.cashflow + Math.abs(item.principalPayment))
+  }, 0)
+  const buildingRemainingPrice = items.reduce((acc, item) => {
+    return acc - item.depreciation
+  }, buildingPrice)
+  const profitPrice = pureProfit + (landPrice) + (buildingRemainingPrice)
 
   // loan
   const loanAmount = price - selfCapital
-  const monthlyInterest = (interestRate / 100) / 12 // in percentage
-  const top = (loanAmount * monthlyInterest) * ((1 + monthlyInterest) ** (loanDuration * 12))
-  const buttom = ((1 + monthlyInterest) ** (loanDuration * 12)) - 1
-  const repayAmount = top / buttom
-  const repayRate = ((repayAmount * 12) / rentIncome) * 100
-
-  const items = Cashflow(props)
+  const repayRate = (Math.abs(items[0].loanPayment) / rentIncome) * 100
 
   let remainingLoan = loanAmount
   let libilityRecoverYears = items[items.length - 1].year
