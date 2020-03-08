@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/core": "7.8.4",
+    "@elastic/charts": "^17.1.1",
     "@elastic/datemath": "^5.0.2",
     "@elastic/eui": "^20.1.0",
     "@svgr/webpack": "4.3.3",
@@ -41,6 +42,7 @@
     "mobx": "^5.15.4",
     "mobx-react": "^6.1.8",
     "moment": "^2.24.0",
+    "moment-timezone": "^0.5.28",
     "optimize-css-assets-webpack-plugin": "5.0.3",
     "pnp-webpack-plugin": "1.6.0",
     "postcss-flexbugs-fixes": "4.1.0",

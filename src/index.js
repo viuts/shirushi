@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import '@elastic/eui/dist/eui_theme_light.css'
+import '@elastic/charts/dist/theme_only_light.css'
 
 import App from './Pages/App'
 import * as serviceWorker from './serviceWorker'

@@ -15,6 +15,7 @@ import Header from '../../Components/Header'
 
 import SummaryBlock from './SummaryBlock'
 import ParametersFrom from './ParametersForm'
+import SimulatedChart from './SimulatedChart'
 import SimulatedTable from './SimulatedTable'
 
 export default () => {
@@ -41,6 +42,9 @@ export default () => {
               <EuiFlexGroup direction="column">
                 <EuiFlexItem>
                   <SummaryBlock />
+                </EuiFlexItem>
+                <EuiFlexItem>
+                  <SimulatedChart />
                 </EuiFlexItem>
                 <EuiFlexItem>
                   <EuiPageContent>
