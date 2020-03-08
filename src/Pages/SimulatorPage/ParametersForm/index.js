@@ -74,6 +74,7 @@ const ParameterForm = ({ paramStore }) => {
       <EuiSpacer size="s" />
 
       <EuiAccordion
+        id="landInfo"
         buttonContent="土地情報を入力"
       >
 
@@ -110,6 +111,7 @@ const ParameterForm = ({ paramStore }) => {
       <EuiSpacer size="s" />
 
       <EuiAccordion
+        id="detailSetting"
         buttonContent="詳細設定を表示"
       >
         <EuiSpacer size="s" />

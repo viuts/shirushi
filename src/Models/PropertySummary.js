@@ -1,5 +1,6 @@
 import _ from 'lodash-es'
 import Constant from '../Config/Constant'
+import Cashflow from './Cashflow'
 
 export default (props) => {
   const { propertyStructure } = props
@@ -31,10 +32,24 @@ export default (props) => {
   const repayAmount = top / buttom
   const repayRate = ((repayAmount * 12) / rentIncome) * 100
 
+  const items = Cashflow(props)
+
+  let remainingLoan = loanAmount
+  let libilityRecoverYears = items[items.length - 1].year
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i]
+    remainingLoan -= (item.cashflow + Math.abs(item.loanPayment))
+    if (remainingLoan <= 0) {
+      libilityRecoverYears = item.year
+      break
+    }
+  }
+
   return {
     landPrice,
     buildingPrice,
     profitPrice,
     repayRate,
+    libilityRecoverYears,
   }
 }

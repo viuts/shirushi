@@ -6,15 +6,15 @@ class ParamStore {
   }
 
   // basic  info
-  @observable price = 2000
+  @observable price = ''
 
-  @observable profitRate = 10
+  @observable profitRate = ''
 
   @observable propertyStructure = 'wood'
 
-  @observable elapsedYear = 0
+  @observable elapsedYear = ''
 
-  @observable buildingSize = 0
+  @observable buildingSize = ''
 
   // property info
 

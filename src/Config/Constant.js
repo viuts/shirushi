@@ -6,27 +6,22 @@ export default {
       reconstructurePrice: 13,
     },
     lightSteel: {
-      label: '軽量鉄骨',
+      label: '軽量鉄骨造',
       year: 22,
       reconstructurePrice: 13,
     },
     steel: {
-      label: '鉄骨',
+      label: '鉄骨造',
       year: 27,
       reconstructurePrice: 15,
     },
-    heavySteel: {
-      label: '重量鉄骨',
-      year: 34,
-      reconstructurePrice: 18,
-    },
     rc: {
-      label: 'RC',
+      label: 'RC造',
       year: 47,
       reconstructurePrice: 20,
     },
     src: {
-      label: 'SRC',
+      label: 'SRC造',
       year: 47,
       reconstructurePrice: 20,
     },

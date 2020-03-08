@@ -40,11 +40,6 @@ const SimulatedTable = ({ paramStore }) => {
       render: formatMoney,
     },
     {
-      field: 'loanPayment',
-      name: 'ローン支払い',
-      render: formatMoney,
-    },
-    {
       field: 'managementFee',
       name: '管理費',
       render: formatMoney,
@@ -65,8 +60,13 @@ const SimulatedTable = ({ paramStore }) => {
       render: formatMoney,
     },
     {
-      field: 'cashflow',
-      name: 'CF',
+      field: 'interest',
+      name: '返済利息',
+      render: formatMoney,
+    },
+    {
+      field: 'emptyRoomLoss',
+      name: '空室損失',
       render: formatMoney,
     },
     {
@@ -74,6 +74,31 @@ const SimulatedTable = ({ paramStore }) => {
       name: '減価償却',
       render: formatMoney,
     },
+    {
+      field: 'operatingIncome',
+      name: '経常利益',
+      render: formatMoney,
+    },
+    {
+      field: 'tax',
+      name: '法人税',
+      render: formatMoney,
+    },
+    {
+      field: 'principalPayment',
+      name: '本金返済',
+      render: formatMoney,
+    },
+    {
+      field: 'cashflow',
+      name: 'CF',
+      render: formatMoney,
+    },
+    // {
+    //   field: 'loanPayment',
+    //   name: 'ローン支払い',
+    //   render: formatMoney,
+    // },
     {
       field: 'remainingAmount',
       name: 'ローン残額',
@@ -95,6 +120,8 @@ const SimulatedTable = ({ paramStore }) => {
     <EuiBasicTable
       items={items}
       columns={columns}
+      compressed
+      tableLayout="auto"
     />
   )
 }

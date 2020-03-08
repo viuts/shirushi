@@ -15,10 +15,16 @@ const formatPrice = value => `${value.toFixed(1)}万円`
 
 const SummaryBlock = ({ paramStore }) => {
   const {
+    landSize,
+    buildingSize,
+    areaProfitRate,
+  } = paramStore
+  const {
     landPrice,
     buildingPrice,
     profitPrice,
     repayRate,
+    libilityRecoverYears,
   } = PropertySummary(paramStore)
 
   return (
@@ -30,7 +36,7 @@ const SummaryBlock = ({ paramStore }) => {
               title={formatPrice(landPrice)}
               description="土地価格"
               textAlign="right"
-              isLoading={landPrice === 0}
+              isLoading={landSize === 0}
             />
           </EuiPanel>
         </EuiFlexItem>
@@ -40,7 +46,7 @@ const SummaryBlock = ({ paramStore }) => {
               title={formatPrice(buildingPrice)}
               description="建物価格"
               textAlign="right"
-              isLoading={buildingPrice === 0}
+              isLoading={buildingSize === 0}
             />
           </EuiPanel>
         </EuiFlexItem>
@@ -50,7 +56,7 @@ const SummaryBlock = ({ paramStore }) => {
               title={formatPrice(landPrice + buildingPrice)}
               description="積算価格"
               textAlign="right"
-              isLoading={landPrice === 0 || buildingPrice === 0}
+              isLoading={landSize === 0 || buildingSize === 0}
             />
           </EuiPanel>
         </EuiFlexItem>
@@ -60,7 +66,7 @@ const SummaryBlock = ({ paramStore }) => {
               title={formatPrice(profitPrice)}
               description="収益価格"
               textAlign="right"
-              isLoading={profitPrice === 0}
+              isLoading={areaProfitRate === 0}
             />
           </EuiPanel>
         </EuiFlexItem>
@@ -71,6 +77,16 @@ const SummaryBlock = ({ paramStore }) => {
               description="返済比率"
               textAlign="right"
               isLoading={repayRate === 0}
+            />
+          </EuiPanel>
+        </EuiFlexItem>
+        <EuiFlexItem>
+          <EuiPanel>
+            <EuiStat
+              title={`${libilityRecoverYears.toFixed(1)}年`}
+              description="債務償還年数"
+              textAlign="right"
+              isLoading={libilityRecoverYears === 0}
             />
           </EuiPanel>
         </EuiFlexItem>

@@ -20,6 +20,7 @@ export default (props) => {
     reformAfter,
     reformEvery,
     reformFee,
+    taxRate,
   } = _.mapValues(props, Number)
 
   const loanAmount = price - selfCapital
@@ -41,13 +42,19 @@ export default (props) => {
     .reduce((acc, v, index) => {
       // loan
       const interestableAmount = acc.length === 0 ? loanAmount : acc[acc.length - 1].remainingAmount
-      const remainingAmount = interestableAmount > 0 ? (interestableAmount - repayAmount) * (1 + monthlyInterest) : 0
-      const loanPayment = Math.min(repayAmount, interestableAmount)
+      const interest = interestableAmount > 0 ? (interestableAmount) * (monthlyInterest) : 0
+      const principalPayment = interestableAmount > 0 ? repayAmount - interest : 0
+
+      const newBase = (interestableAmount + interest)
+      const loanPayment = newBase - repayAmount < 1 ? newBase : Math.min(repayAmount, newBase)
+      const remainingAmount = Math.max(newBase - loanPayment, 0)
 
       acc.push({
         month: index + 1,
+        interest,
         loanPayment,
-        remainingAmount: Math.max(remainingAmount, 0),
+        principalPayment,
+        remainingAmount,
       })
       return acc
     }, [])
@@ -59,13 +66,16 @@ export default (props) => {
       const items = monthlyItems.slice(index * 12, (index + 1) * 12)
       const currentYear = index + 1
       const loanPayment = _.sumBy(items, 'loanPayment')
+      const interest = _.sumBy(items, 'interest')
+      const principalPayment = _.sumBy(items, 'principalPayment')
 
       // income
       // income
       const expectedRent = (price * (profitRate / 100))
       const rentDecrease = index * (rentDecreaseRate / 100)
       const actualRent = expectedRent * (1 - rentDecrease)
-      const rentIncome = actualRent * (rentRate / 100)
+      const emptyRoomLoss = actualRent * (1 - (rentRate / 100))
+      const rentIncome = actualRent - emptyRoomLoss
 
       // yearly items
       const { year, reconstructurePrice } = Constant.PROPERTY_STRUCTURES[propertyStructure]
@@ -79,26 +89,32 @@ export default (props) => {
       const reformExpense = (index - (reformAfter - 1)) % reformEvery === 0 ? reformFee : 0
 
       // payout
-      const payout = loanPayment + managementFee + maintainanceFee + yearlyCost + reformExpense
+      const payout = managementFee + maintainanceFee + yearlyCost + reformExpense + interest + (currentYear === 1 ? purchaseCost : 0)
 
       // cashflow
-      // payout is negative
-      const cashflow = rentIncome - payout
+      const operatingIncome = rentIncome - (payout + emptyRoomLoss + depreciation)
+      const tax = operatingIncome > 0 ? operatingIncome * (taxRate / 100) : 0
+      const cashflow = operatingIncome - tax + depreciation + emptyRoomLoss - principalPayment
 
-      const actualProfitRate = ((cashflow + loanPayment) / (price + purchaseCost)) * 100
+      const actualProfitRate = ((cashflow + principalPayment + interest) / (price + purchaseCost)) * 100
 
       accumulatedCashflow += cashflow
 
       return {
         year: currentYear,
         rentIncome,
-        loanPayment: -loanPayment,
         managementFee: -managementFee,
         maintainanceFee: -maintainanceFee,
         yearlyCost: -yearlyCost,
         reformExpense: -reformExpense,
-        cashflow,
+        emptyRoomLoss: -emptyRoomLoss,
         depreciation: -depreciation,
+        principalPayment: -principalPayment,
+        interest: -interest,
+        operatingIncome,
+        tax: -tax,
+        cashflow,
+        loanPayment: -loanPayment,
         remainingAmount: -items[items.length - 1].remainingAmount,
         accumulatedCashflow,
         actualProfitRate,
