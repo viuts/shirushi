@@ -5,20 +5,24 @@ class ParamStore {
     this.rootStore = rootStore
   }
 
-  // Property info
-  @observable price = 0
+  // basic  info
+  @observable price = 2000
 
-  @observable profitRate = 0
+  @observable profitRate = 10
 
   @observable propertyStructure = 'wood'
 
   @observable elapsedYear = 0
 
-  @observable landSize = 0
-
   @observable buildingSize = 0
 
+  // property info
+
+  @observable landSize = 0
+
   @observable roadPrice = 0
+
+  @observable areaProfitRate = 0
 
   // Detailed settings
   @observable selfCapital = 0
@@ -36,9 +40,19 @@ class ParamStore {
 
   @observable maintainanceCost = 5
 
+  @observable purchaseCost = 0
+
   @observable yearlyCost = 0
 
   @observable taxRate = 30
+
+  // Reform
+
+  @observable reformAfter = ''
+
+  @observable reformEvery = ''
+
+  @observable reformFee = ''
 
   @action saveParams = (params) => {
     Object.keys(params).forEach((key) => {

@@ -3,59 +3,91 @@ import { inject, observer, PropTypes } from 'mobx-react'
 
 import {
   EuiBasicTable,
+  EuiText,
 } from '@elastic/eui'
 
+import Cashflow from '../../../Models/Cashflow'
+
+const formatMoney = value => (
+  <EuiText
+    color={value >= 0 ? 'default' : 'danger'}
+  >
+    {value.toFixed(1)}万円
+  </EuiText>
+)
+
+
+const formatPercentage = value => (
+  <EuiText
+    color={value >= 0 ? 'default' : 'danger'}
+  >
+    {value.toFixed(2)}%
+  </EuiText>
+)
+
+
 const SimulatedTable = ({ paramStore }) => {
-  const {
-    price,
-    // profitRate,
-    // propertyStructure,
-    // elapsedYear,
-    // landSize,
-    // buildingSize,
-    // roadPrice,
-    selfCapital,
-    interestRate,
-    loanDuration,
-    // rentRate,
-    // rentDecreaseRate,
-    // managementCost,
-    // maintainanceCost,
-    // taxRate,
-  } = paramStore
-
-  const loanAmount = price - selfCapital
-
-  const totalMonths = (loanDuration + 10) * 12
-
-  console.log(loanAmount)
-
-  const items = Array(totalMonths).fill(1).map((_, i) => i)
-    .reduce((acc) => {
-      // const yearPassed = month % 12 === 0
-      const repayAmount = acc.length === 0 ? (loanAmount / totalMonths) : (acc[acc.length - 1].remainingAmount / totalMonths)
-      const interestableAmount = acc.length === 0 ? loanAmount - repayAmount : acc[acc.length - 1].remainingAmount - repayAmount
-      const remainingAmount = interestableAmount * (1 + interestRate / (100 * 12))
-      acc.push({
-        repayAmount,
-        interestableAmount,
-        remainingAmount,
-      })
-      return acc
-    }, [])
+  const items = Cashflow(paramStore)
 
   const columns = [
     {
-      field: 'repayAmount',
-      name: 'repayAmount',
+      field: 'year',
+      name: '年数',
     },
     {
-      field: 'interestableAmount',
-      name: 'interestableAmount',
+      field: 'rentIncome',
+      name: '家賃収入',
+      render: formatMoney,
+    },
+    {
+      field: 'loanPayment',
+      name: 'ローン支払い',
+      render: formatMoney,
+    },
+    {
+      field: 'managementFee',
+      name: '管理費',
+      render: formatMoney,
+    },
+    {
+      field: 'maintainanceFee',
+      name: '修繕費',
+      render: formatMoney,
+    },
+    {
+      field: 'yearlyCost',
+      name: '年間諸経費',
+      render: formatMoney,
+    },
+    {
+      field: 'reformExpense',
+      name: '大規模修繕',
+      render: formatMoney,
+    },
+    {
+      field: 'cashflow',
+      name: 'CF',
+      render: formatMoney,
+    },
+    {
+      field: 'depreciation',
+      name: '減価償却',
+      render: formatMoney,
     },
     {
       field: 'remainingAmount',
-      name: 'remainingAmount',
+      name: 'ローン残額',
+      render: formatMoney,
+    },
+    {
+      field: 'accumulatedCashflow',
+      name: '累計CF',
+      render: formatMoney,
+    },
+    {
+      field: 'actualProfitRate',
+      name: '実質利回り',
+      render: formatPercentage,
     },
   ]
 

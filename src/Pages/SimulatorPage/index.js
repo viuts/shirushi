@@ -11,10 +11,11 @@ import {
   EuiFlexItem,
 } from '@elastic/eui'
 
-import ParametersFrom from './ParametersForm'
 import Header from '../../Components/Header'
-import SimulatedTable from './SimulatedTable'
 
+import SummaryBlock from './SummaryBlock'
+import ParametersFrom from './ParametersForm'
+import SimulatedTable from './SimulatedTable'
 
 export default () => {
   return (
@@ -25,7 +26,7 @@ export default () => {
           <EuiPageHeader>
             <EuiPageHeaderSection>
               <EuiTitle size="l">
-                <h1>Page title</h1>
+                <h1>キャッシュフローシミュレーター</h1>
               </EuiTitle>
             </EuiPageHeaderSection>
             <EuiPageHeaderSection>Page abilities</EuiPageHeaderSection>
@@ -37,10 +38,16 @@ export default () => {
             </EuiFlexItem>
 
             <EuiFlexItem>
-              <EuiPageContent>
-                <SimulatedTable />
-              </EuiPageContent>
-
+              <EuiFlexGroup direction="column">
+                <EuiFlexItem>
+                  <SummaryBlock />
+                </EuiFlexItem>
+                <EuiFlexItem>
+                  <EuiPageContent>
+                    <SimulatedTable />
+                  </EuiPageContent>
+                </EuiFlexItem>
+              </EuiFlexGroup>
             </EuiFlexItem>
 
           </EuiFlexGroup>
