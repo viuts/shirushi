@@ -18,7 +18,14 @@ import {
 } from '@elastic/eui'
 
 const providers = [
-  { key: 'rakumachi', text: '楽待' },
+  {
+    value: 'rakumachi',
+    text: '楽待',
+  },
+  {
+    value: 'homes',
+    text: 'ホームズ',
+  },
 ]
 
 const LinkImporter = ({ show, onDismiss, onSubmit }) => {

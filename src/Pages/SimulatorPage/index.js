@@ -42,10 +42,13 @@ const SimulatorPage = ({ paramStore }) => {
   const onURLSubmit = async ({ provider, url }) => {
     setShowDialog(false)
     setLoading(true)
-    const result = await URLImporter(provider, url, true)
-    if (result) {
-      paramStore.saveParams(result)
+    const result = await URLImporter(provider, url)
+    if (!result) {
+      window.alert('failed to import')
+      return
     }
+    paramStore.saveParams(result)
+    await paramStore.getGeocode()
     setLoading(false)
   }
 
@@ -66,8 +69,8 @@ const SimulatorPage = ({ paramStore }) => {
             title={<h2>データを入力してください</h2>}
             body={(
               <EuiText>
-                 左のパネルから物件情報を入力してください。
-                 右上のボタンからリンクを貼れば、物件情報が自動的に入力されんます。
+                左のパネルから物件情報を入力してください。
+                右上のボタンからリンクを貼れば、物件情報が自動的に入力されます。
               </EuiText>
             )}
           />

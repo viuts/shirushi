@@ -48,6 +48,7 @@ module.exports = {
     'implicit-arrow-linebreak': 0,
     'no-else-return': 0,
     'no-unused-vars': ['error', { vars: 'all', args: 'after-used', ignoreRestSiblings: true }],
+    'no-alert': 0,
 
     // import
     'import/no-unresolved': [2, { commonjs: true, ignore: ['config/message$'] }],

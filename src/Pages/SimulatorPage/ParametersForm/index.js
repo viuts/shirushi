@@ -8,6 +8,9 @@ import {
   EuiSelect,
   EuiSpacer,
   EuiAccordion,
+  EuiButtonIcon,
+  EuiFlexGroup,
+  EuiFlexItem,
 } from '@elastic/eui'
 
 import Constant from '../../../Config/Constant'
@@ -79,6 +82,26 @@ const ParameterForm = ({ paramStore }) => {
       >
 
         <EuiSpacer size="s" />
+
+        <EuiFormRow label="住所" display="columnCompressed">
+          <EuiFlexGroup>
+            <EuiFlexItem>
+              <EuiFieldText
+                value={paramStore.address}
+                onChange={(evt) => { paramStore.saveParams({ address: evt.target.value }) }}
+                compressed
+              />
+            </EuiFlexItem>
+            <EuiFlexItem grow={false}>
+              <EuiButtonIcon
+                onClick={() => paramStore.getGeocode()}
+                iconType="annotation"
+                aria-label="Next"
+                disabled={paramStore.address === ''}
+              />
+            </EuiFlexItem>
+          </EuiFlexGroup>
+        </EuiFormRow>
 
         <EuiFormRow label="土地面積" display="columnCompressed">
           <EuiFieldText
