@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "https://viuts.github.io/shirushi/precache-manifest.35a21356f672ee334ac3d8061fa0c90f.js"
+  "https://viuts.github.io/shirushi/precache-manifest.34589f4f4cb560d1dd88dcac01ba8693.js"
 );
 
 self.addEventListener('message', (event) => {
