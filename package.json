@@ -53,13 +53,9 @@
     "roots": [
       "<rootDir>/src"
     ],
-    "setupFiles": [
-      "react-app-polyfill/jsdom"
-    ],
     "setupFilesAfterEnv": [
       "<rootDir>/src/setupTests.js"
     ],
-    "testEnvironment": "jest-environment-jsdom-fourteen",
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
       "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
@@ -83,7 +79,6 @@
     "@elastic/datemath": "^5.0.2",
     "@elastic/eui": "^20.1.0",
     "fs-extra": "^8.1.0",
-    "jsdom": "^16.2.0",
     "lodash-es": "^4.17.15",
     "mobx": "^5.15.4",
     "mobx-react": "^6.1.8",
@@ -136,7 +131,6 @@
     "html-webpack-plugin": "4.0.0-beta.11",
     "identity-obj-proxy": "3.0.0",
     "jest": "24.9.0",
-    "jest-environment-jsdom-fourteen": "1.0.1",
     "jest-resolve": "24.9.0",
     "jest-watch-typeahead": "0.4.2",
     "mini-css-extract-plugin": "0.9.0",

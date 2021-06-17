@@ -1,6 +1,6 @@
 import { observable, action, reaction } from 'mobx'
 
-import Geocoder from '../Services/Geocoder'
+// import Geocoder from '../Services/Geocoder'
 import LandPriceLookup from '../Services/LandPriceLookup'
 
 class ParamStore {
@@ -28,6 +28,10 @@ class ParamStore {
   // property info
 
   @observable address = ''
+
+  @observable lat = ''
+
+  @observable lng = ''
 
   @observable landSize = 0
 
@@ -72,12 +76,12 @@ class ParamStore {
   }
 
   @action getGeocode = async () => {
-    const result = await Geocoder(this.address)
-    if (!result) {
-      window.alert('住所が確定できませんでした。住所をもう一度ご確認ください')
-      return
-    }
-    const { values } = await LandPriceLookup(result)
+    // const result = await Geocoder(this.address)
+    // if (!result) {
+    //   window.alert('住所が確定できませんでした。住所をもう一度ご確認ください')
+    //   return
+    // }
+    const { values } = await LandPriceLookup({ lat: this.lat, lng: this.lng })
     // take the first one
     this.saveParams({ roadPrice: values[0].price / 10 })
   }
