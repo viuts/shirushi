@@ -27,6 +27,7 @@ export default async (address) => {
       lng,
     }
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.log(err)
     return null
   }

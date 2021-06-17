@@ -9,6 +9,7 @@ export default async ({ lat, lng }) => {
       })
     return res.body
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.log(err)
     return null
   }

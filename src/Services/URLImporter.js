@@ -100,6 +100,7 @@ export default async (provider, link) => {
     const result = await func(link)
     return result
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.log(err)
     return null
   }
