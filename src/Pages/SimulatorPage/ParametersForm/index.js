@@ -8,9 +8,9 @@ import {
   EuiSelect,
   EuiSpacer,
   EuiAccordion,
-  EuiButtonIcon,
-  EuiFlexGroup,
-  EuiFlexItem,
+  // EuiButtonIcon,
+  // EuiFlexGroup,
+  // EuiFlexItem,
 } from '@elastic/eui'
 
 import Constant from '../../../Config/Constant'
@@ -83,7 +83,7 @@ const ParameterForm = ({ paramStore }) => {
       >
 
         <EuiSpacer size="s" />
-
+        {/*
         <EuiFormRow label="住所" display="columnCompressed">
           <EuiFlexGroup>
             <EuiFlexItem>
@@ -102,7 +102,7 @@ const ParameterForm = ({ paramStore }) => {
               />
             </EuiFlexItem>
           </EuiFlexGroup>
-        </EuiFormRow>
+        </EuiFormRow> */}
 
         <EuiFormRow label="土地面積" display="columnCompressed">
           <EuiFieldText
@@ -217,6 +217,15 @@ const ParameterForm = ({ paramStore }) => {
             value={paramStore.taxRate}
             onChange={(evt) => { paramStore.saveParams({ taxRate: evt.target.value }) }}
             append="%"
+            compressed
+          />
+        </EuiFormRow>
+
+        <EuiFormRow label="初回リフォーム" display="columnCompressed">
+          <EuiFieldText
+            value={paramStore.initialReformFee}
+            onChange={(evt) => { paramStore.saveParams({ initialReformFee: evt.target.value }) }}
+            append="万円"
             compressed
           />
         </EuiFormRow>

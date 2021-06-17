@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx'
+import { observable, action, reaction } from 'mobx'
 
 import Geocoder from '../Services/Geocoder'
 import LandPriceLookup from '../Services/LandPriceLookup'
@@ -6,6 +6,12 @@ import LandPriceLookup from '../Services/LandPriceLookup'
 class ParamStore {
   constructor(rootStore) {
     this.rootStore = rootStore
+
+    reaction(() => this.price, () => {
+      if (Number(this.price) > 0) {
+        this.purchaseCost = (Number(this.price) * 0.07).toFixed(2)
+      }
+    })
   }
 
   // basic  info
@@ -45,11 +51,13 @@ class ParamStore {
 
   @observable purchaseCost = 0
 
-  @observable yearlyCost = 0
+  @observable yearlyCost = 10
 
   @observable taxRate = 30
 
   // Reform
+
+  @observable initialReformFee = ''
 
   @observable reformAfter = ''
 

@@ -17,6 +17,7 @@ export default (props) => {
     maintainanceCost,
     purchaseCost,
     yearlyCost,
+    initialReformFee,
     reformAfter,
     reformEvery,
     reformFee,
@@ -86,7 +87,12 @@ export default (props) => {
       // expenses
       const managementFee = rentIncome * (managementCost / 100)
       const maintainanceFee = rentIncome * (maintainanceCost / 100)
-      const reformExpense = (index - (reformAfter - 1)) % reformEvery === 0 ? reformFee : 0
+      let reformExpense = 0
+      if (currentYear === 1) {
+        reformExpense = initialReformFee
+      } else {
+        reformExpense = (index - (reformAfter - 1)) % reformEvery === 0 ? reformFee : 0
+      }
 
       // payout
       const payout = managementFee + maintainanceFee + yearlyCost + reformExpense + interest + (currentYear === 1 ? purchaseCost : 0)

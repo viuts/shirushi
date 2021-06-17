@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 
 import {
-  EuiButton,
+  // EuiButton,
   EuiPage,
   EuiPageBody,
   EuiPageContent,
@@ -97,7 +97,6 @@ const SimulatorPage = ({ paramStore }) => {
             body={(
               <EuiText>
                 左のパネルから物件情報を入力してください。
-                右上のボタンからリンクを貼れば、物件情報が自動的に入力されます。
               </EuiText>
             )}
           />
@@ -133,14 +132,14 @@ const SimulatorPage = ({ paramStore }) => {
                 <h1>キャッシュフローシミュレーター</h1>
               </EuiTitle>
             </EuiPageHeaderSection>
-            <EuiPageHeaderSection>
+            {/* <EuiPageHeaderSection>
               <EuiButton
                 onClick={() => setShowDialog(true)}
                 fill
               >
                 ネットからインポート
               </EuiButton>
-            </EuiPageHeaderSection>
+            </EuiPageHeaderSection> */}
           </EuiPageHeader>
 
           <EuiFlexGroup>
