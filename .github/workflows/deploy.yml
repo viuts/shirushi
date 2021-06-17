@@ -1,0 +1,18 @@
+name: Deploy
+
+on:
+  push: {branches: master}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    - run: npm install
+    - run: |
+        git config --global user.name 'viuts'
+        git config --global user.email 'lukexng@gmail.com'
+        npm run publish:github
