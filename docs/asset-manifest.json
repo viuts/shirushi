@@ -750,23 +750,23 @@
     "icon.vis_visual_builder-js.js.map": "https://viuts.github.io/shirushi/static/js/icon.vis_visual_builder-js.6d338cd0.chunk.js.map",
     "icon.wrench-js.js": "https://viuts.github.io/shirushi/static/js/icon.wrench-js.a5330867.chunk.js",
     "icon.wrench-js.js.map": "https://viuts.github.io/shirushi/static/js/icon.wrench-js.a5330867.chunk.js.map",
-    "main.js": "https://viuts.github.io/shirushi/static/js/main.0cefe44f.chunk.js",
-    "main.js.map": "https://viuts.github.io/shirushi/static/js/main.0cefe44f.chunk.js.map",
+    "main.js": "https://viuts.github.io/shirushi/static/js/main.aa06c634.chunk.js",
+    "main.js.map": "https://viuts.github.io/shirushi/static/js/main.aa06c634.chunk.js.map",
     "runtime-main.js": "https://viuts.github.io/shirushi/static/js/runtime-main.abfca367.js",
     "runtime-main.js.map": "https://viuts.github.io/shirushi/static/js/runtime-main.abfca367.js.map",
-    "static/css/377.f5ce6c7c.chunk.css": "https://viuts.github.io/shirushi/static/css/377.f5ce6c7c.chunk.css",
-    "static/js/377.3033bdaa.chunk.js": "https://viuts.github.io/shirushi/static/js/377.3033bdaa.chunk.js",
-    "static/js/377.3033bdaa.chunk.js.map": "https://viuts.github.io/shirushi/static/js/377.3033bdaa.chunk.js.map",
+    "static/css/377.a5b0a795.chunk.css": "https://viuts.github.io/shirushi/static/css/377.a5b0a795.chunk.css",
+    "static/js/377.3003411a.chunk.js": "https://viuts.github.io/shirushi/static/js/377.3003411a.chunk.js",
+    "static/js/377.3003411a.chunk.js.map": "https://viuts.github.io/shirushi/static/js/377.3003411a.chunk.js.map",
     "index.html": "https://viuts.github.io/shirushi/index.html",
-    "precache-manifest.4747a999a95cd6dd6cf5b9d1f1c53b91.js": "https://viuts.github.io/shirushi/precache-manifest.4747a999a95cd6dd6cf5b9d1f1c53b91.js",
+    "precache-manifest.b56e37ac2fa462e542b94bad31d2ad3d.js": "https://viuts.github.io/shirushi/precache-manifest.b56e37ac2fa462e542b94bad31d2ad3d.js",
     "service-worker.js": "https://viuts.github.io/shirushi/service-worker.js",
-    "static/css/377.f5ce6c7c.chunk.css.map": "https://viuts.github.io/shirushi/static/css/377.f5ce6c7c.chunk.css.map",
-    "static/js/377.3033bdaa.chunk.js.LICENSE.txt": "https://viuts.github.io/shirushi/static/js/377.3033bdaa.chunk.js.LICENSE.txt"
+    "static/css/377.a5b0a795.chunk.css.map": "https://viuts.github.io/shirushi/static/css/377.a5b0a795.chunk.css.map",
+    "static/js/377.3003411a.chunk.js.LICENSE.txt": "https://viuts.github.io/shirushi/static/js/377.3003411a.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.abfca367.js",
-    "static/css/377.f5ce6c7c.chunk.css",
-    "static/js/377.3033bdaa.chunk.js",
-    "static/js/main.0cefe44f.chunk.js"
+    "static/css/377.a5b0a795.chunk.css",
+    "static/js/377.3003411a.chunk.js",
+    "static/js/main.aa06c634.chunk.js"
   ]
 }
