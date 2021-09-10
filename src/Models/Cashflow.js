@@ -7,7 +7,7 @@ export default (props) => {
     price,
     profitRate,
     elapsedYear,
-    buildingSize,
+    // buildingSize,
     selfCapital,
     interestRate,
     loanDuration,
@@ -24,7 +24,7 @@ export default (props) => {
     taxRate,
   } = _.mapValues(props, Number)
 
-  const loanAmount = price - selfCapital
+  const loanAmount = Math.max(price - selfCapital, 0)
   const monthlyInterest = (interestRate / 100) / 12 // in percentage
 
   const totalMonths = (loanDuration + 10) * 12
@@ -62,6 +62,7 @@ export default (props) => {
 
   // transform to year
   let accumulatedCashflow = 0
+  const yearlyIncomes = []
   const yearlyItems = Array(totalMonths / 12).fill(1)
     .map((v, index) => {
       const items = monthlyItems.slice(index * 12, (index + 1) * 12)
@@ -79,10 +80,25 @@ export default (props) => {
       const rentIncome = actualRent - emptyRoomLoss
 
       // yearly items
-      const { year, reconstructurePrice } = Constant.PROPERTY_STRUCTURES[propertyStructure]
-      const remainingYear = Math.max(year - elapsedYear, 0)
-      const buildingYearlyDepreciation = (buildingSize * reconstructurePrice) / year
-      const depreciation = (remainingYear - currentYear) >= 0 ? buildingYearlyDepreciation : 0
+      const { year } = Constant.PROPERTY_STRUCTURES[propertyStructure]
+
+      // Before passing legal years
+      // Depreciation Years = (Legal Years - Elapsed Years) + Elapsed Years * 0.2
+      // After passing legal years
+      // Depreciation Years = Legal Years * 0.2
+      const remainingYear = year - elapsedYear > 0 ? Math.round((year - elapsedYear) + elapsedYear * 0.2) : Math.round(year * 0.2)
+      // Assuming land: 75%, building: 25%
+      const buildingYearlyDepreciation = ((price + purchaseCost) * 0.25) / remainingYear
+      // Initial Reform will use 7 years to calcualte
+      const reformRepreciation = initialReformFee / 7
+      let depreciation = 0
+      if (currentYear <= remainingYear) {
+        depreciation += buildingYearlyDepreciation
+      }
+
+      if (currentYear <= 7) {
+        depreciation += reformRepreciation
+      }
 
       // expenses
       const managementFee = rentIncome * (managementCost / 100)
@@ -95,12 +111,34 @@ export default (props) => {
       }
 
       // payout
-      const payout = managementFee + maintainanceFee + yearlyCost + reformExpense + interest + (currentYear === 1 ? purchaseCost : 0)
+      const payout = managementFee + maintainanceFee + yearlyCost + interest
+      const capitalPayout = reformExpense + (currentYear === 1 ? purchaseCost : 0)
+
+      // travel last 10 years, stop till the year is profitable
+      let carryOverLost = 0
+      const targetYears = yearlyIncomes.slice().reverse().slice(0, 10)
+      for (let i = 0; i <= targetYears.length - 1; i++) {
+        // stop when i = 0
+        if (targetYears.length <= 0) {
+          break
+        }
+        // stop when there are positive
+        if (targetYears[i].amount >= 0) {
+          break
+        }
+        carryOverLost += targetYears[i].amount
+      }
 
       // cashflow
-      const operatingIncome = rentIncome - (payout + emptyRoomLoss + depreciation)
-      const tax = operatingIncome > 0 ? operatingIncome * (taxRate / 100) : 0
-      const cashflow = operatingIncome - tax + depreciation + emptyRoomLoss - principalPayment
+      const operatingIncome = rentIncome - (payout + depreciation)
+      const taxableIncome = Math.max(operatingIncome + carryOverLost, 0)
+      const tax = taxableIncome > 0 ? taxableIncome * (taxRate / 100) : 0
+      const cashflow = operatingIncome - tax + depreciation - principalPayment - capitalPayout
+
+      yearlyIncomes.push({
+        year: currentYear,
+        amount: operatingIncome,
+      })
 
       const actualProfitRate = ((cashflow + principalPayment + interest) / (price + purchaseCost)) * 100
 
@@ -117,6 +155,7 @@ export default (props) => {
         depreciation: -depreciation,
         principalPayment: -principalPayment,
         interest: -interest,
+        carryOverLost,
         operatingIncome,
         tax: -tax,
         cashflow,

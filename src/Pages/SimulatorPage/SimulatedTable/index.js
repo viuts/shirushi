@@ -39,6 +39,11 @@ const SimulatedTable = ({ paramStore }) => {
       name: '家賃収入',
       render: formatMoney,
     },
+    // {
+    //   field: 'emptyRoomLoss',
+    //   name: '空室損失',
+    //   render: formatMoney,
+    // },
     {
       field: 'managementFee',
       name: '管理費',
@@ -65,11 +70,6 @@ const SimulatedTable = ({ paramStore }) => {
       render: formatMoney,
     },
     {
-      field: 'emptyRoomLoss',
-      name: '空室損失',
-      render: formatMoney,
-    },
-    {
       field: 'depreciation',
       name: '減価償却',
       render: formatMoney,
@@ -77,6 +77,11 @@ const SimulatedTable = ({ paramStore }) => {
     {
       field: 'operatingIncome',
       name: '経常利益',
+      render: formatMoney,
+    },
+    {
+      field: 'carryOverLost',
+      name: '繰越損失',
       render: formatMoney,
     },
     {
