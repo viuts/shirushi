@@ -121,7 +121,7 @@ export default (props) => {
       if (operatingIncome < 0) {
         carryOverLost += operatingIncome
       } else {
-        carryOverLost -+ operatingIncome
+        carryOverLost -= operatingIncome
       }
 
       const taxableIncome = Math.max(operatingIncome + carryOverLost, 0)
