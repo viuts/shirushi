@@ -62,6 +62,8 @@ export default (props) => {
 
   // transform to year
   let accumulatedCashflow = 0
+  let carryOverLost = 0
+  let carryYears = 0
   const yearlyIncomes = []
   const yearlyItems = Array(totalMonths / 12).fill(1)
     .map((v, index) => {
@@ -114,24 +116,27 @@ export default (props) => {
       const payout = managementFee + maintainanceFee + yearlyCost + interest
       const capitalPayout = reformExpense + (currentYear === 1 ? purchaseCost : 0)
 
-      // travel last 10 years, stop till the year is profitable
-      let carryOverLost = 0
-      const targetYears = yearlyIncomes.slice().reverse().slice(0, 10)
-      for (let i = 0; i <= targetYears.length - 1; i++) {
-        // stop when i = 0
-        if (targetYears.length <= 0) {
-          break
-        }
-        // stop when there are positive
-        if (targetYears[i].amount >= 0) {
-          break
-        }
-        carryOverLost += targetYears[i].amount
-      }
-
       // cashflow
       const operatingIncome = rentIncome - (payout + depreciation)
+      if (operatingIncome < 0) {
+        carryOverLost += operatingIncome
+      } else {
+        carryOverLost -+ operatingIncome
+      }
+
       const taxableIncome = Math.max(operatingIncome + carryOverLost, 0)
+      if (taxableIncome < 0) {
+        carryYears = 0
+      } else {
+        carryYears += 1
+      }
+
+      // reset if it passed 10 years
+      if (carryYears > 10) {
+        carryOverLost = 0
+        carryYears = 0
+      }
+
       const tax = taxableIncome > 0 ? taxableIncome * (taxRate / 100) : 0
       const cashflow = operatingIncome - tax + depreciation - principalPayment - capitalPayout
 
@@ -157,6 +162,7 @@ export default (props) => {
         interest: -interest,
         carryOverLost,
         operatingIncome,
+        taxableIncome,
         tax: -tax,
         cashflow,
         loanPayment: -loanPayment,

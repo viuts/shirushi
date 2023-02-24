@@ -85,6 +85,11 @@ const SimulatedTable = ({ paramStore }) => {
       render: formatMoney,
     },
     {
+      field: 'taxableIncome',
+      name: '税引前利益',
+      render: formatMoney,
+    },
+    {
       field: 'tax',
       name: '法人税',
       render: formatMoney,
@@ -99,11 +104,6 @@ const SimulatedTable = ({ paramStore }) => {
       name: 'CF',
       render: formatMoney,
     },
-    // {
-    //   field: 'loanPayment',
-    //   name: 'ローン支払い',
-    //   render: formatMoney,
-    // },
     {
       field: 'remainingAmount',
       name: 'ローン残額',
