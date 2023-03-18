@@ -29,7 +29,7 @@ export default (props) => {
 
   // loan
   const loanAmount = price - selfCapital
-  const repayRate = (Math.abs(items[0].loanPayment) / rentIncome) * 100
+  const repayRate = ((items[0].interest + items[0].principalPayment)/ rentIncome) * 100
 
   let remainingLoan = loanAmount
   let libilityRecoverYears = items[items.length - 1].year
