@@ -120,19 +120,17 @@ export default (props) => {
       const operatingIncome = rentIncome - (payout + depreciation)
       if (operatingIncome < 0) {
         carryOverLost += operatingIncome
-      } else {
-        carryOverLost -= operatingIncome
+      } else if (carryOverLost < 0) {
+        carryOverLost = Math.min(carryOverLost + operatingIncome, 0)
       }
 
       const taxableIncome = Math.max(operatingIncome + carryOverLost, 0)
-      if (taxableIncome < 0) {
-        carryYears = 0
-      } else {
+      if (carryOverLost < 0 && taxableIncome < 0) {
         carryYears += 1
       }
 
       // reset if it passed 10 years
-      if (carryYears > 10) {
+      if (carryYears > 10 || carryOverLost === 0) {
         carryOverLost = 0
         carryYears = 0
       }

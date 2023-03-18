@@ -22,7 +22,8 @@ import Header from '../../Components/Header'
 import SummaryBlock from './SummaryBlock'
 import ParametersFrom from './ParametersForm'
 import SimulatedChart from './SimulatedChart'
-import SimulatedTable from './SimulatedTable'
+// import SimulatedTable from './SimulatedTable'
+import SimulationGrid from './SimulationGrid'
 
 const SimulatorPage = ({ paramStore }) => {
   const {
@@ -59,7 +60,7 @@ const SimulatorPage = ({ paramStore }) => {
         </EuiFlexItem>
         <EuiFlexItem>
           <EuiPageContent>
-            <SimulatedTable />
+            <SimulationGrid />
           </EuiPageContent>
         </EuiFlexItem>
       </EuiFlexGroup>
