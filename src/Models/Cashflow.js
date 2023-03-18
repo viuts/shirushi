@@ -22,12 +22,13 @@ export default (props) => {
     reformEvery,
     reformFee,
     taxRate,
+    propertyDepreciationRatio,
   } = _.mapValues(props, Number)
 
   const loanAmount = Math.max(price - selfCapital, 0)
   const monthlyInterest = (interestRate / 100) / 12 // in percentage
 
-  const totalMonths = (loanDuration + 10) * 12
+  const totalMonths = (loanDuration) * 12
 
   // x = Ar(1+r)^n / (1+r)^n −1
   // A -> loan Amount
@@ -64,6 +65,30 @@ export default (props) => {
   let accumulatedCashflow = 0
   let carryOverLost = 0
   let carryYears = 0
+
+  // Before passing legal years
+  // Depreciation Years = (Legal Years - Elapsed Years) + Elapsed Years * 0.2
+  // After passing legal years
+  // Depreciation Years = Legal Years * 0.2
+  const { year } = Constant.PROPERTY_STRUCTURES[propertyStructure]
+
+  let depreciations = [
+    {
+      name: 'building',
+      years: year - elapsedYear > 0 ? Math.round((year - elapsedYear) + elapsedYear * 0.2) : Math.round(year * 0.2),
+      amount: (price + purchaseCost) * (propertyDepreciationRatio / 100),
+    },
+    {
+      name: 'initialReform',
+      years: year,
+      amount: initialReformFee,
+    },
+  ].map((item) => {
+    item.depreciationAmount = item.amount / item.years
+    return item
+  })
+
+  console.log(depreciations)
   const yearlyIncomes = []
   const yearlyItems = Array(totalMonths / 12).fill(1)
     .map((v, index) => {
@@ -74,33 +99,11 @@ export default (props) => {
       const principalPayment = _.sumBy(items, 'principalPayment')
 
       // income
-      // income
       const expectedRent = (price * (profitRate / 100))
       const rentDecrease = index * (rentDecreaseRate / 100)
       const actualRent = expectedRent * (1 - rentDecrease)
       const emptyRoomLoss = actualRent * (1 - (rentRate / 100))
       const rentIncome = actualRent - emptyRoomLoss
-
-      // yearly items
-      const { year } = Constant.PROPERTY_STRUCTURES[propertyStructure]
-
-      // Before passing legal years
-      // Depreciation Years = (Legal Years - Elapsed Years) + Elapsed Years * 0.2
-      // After passing legal years
-      // Depreciation Years = Legal Years * 0.2
-      const remainingYear = year - elapsedYear > 0 ? Math.round((year - elapsedYear) + elapsedYear * 0.2) : Math.round(year * 0.2)
-      // Assuming land: 75%, building: 25%
-      const buildingYearlyDepreciation = ((price + purchaseCost) * 0.25) / remainingYear
-      // Initial Reform will use 7 years to calcualte
-      const reformRepreciation = initialReformFee / 7
-      let depreciation = 0
-      if (currentYear <= remainingYear) {
-        depreciation += buildingYearlyDepreciation
-      }
-
-      if (currentYear <= 7) {
-        depreciation += reformRepreciation
-      }
 
       // expenses
       const managementFee = rentIncome * (managementCost / 100)
@@ -110,7 +113,37 @@ export default (props) => {
         reformExpense = initialReformFee
       } else {
         reformExpense = (index - (reformAfter - 1)) % reformEvery === 0 ? reformFee : 0
+        if (reformExpense > 0) {
+          depreciations.push({
+            name: 'routineReform',
+            years: year,
+            amount: reformExpense,
+            depreciationAmount: reformExpense / year,
+          })
+        }
       }
+
+      // depreciation
+      const depreciationAssets = depreciations.reduce((acc, cur) => {
+        return acc + cur.amount
+      }, 0)
+
+      const depreciation = depreciations.reduce((acc, cur) => {
+        if (cur.amount <= 0) {
+          return acc
+        }
+
+        return acc + cur.depreciationAmount
+      }, 0)
+
+      depreciations = depreciations.map(({ name, years, amount, depreciationAmount }) => {
+        return {
+          name,
+          years,
+          amount: amount - depreciationAmount,
+          depreciationAmount,
+        }
+      })
 
       // payout
       const payout = managementFee + maintainanceFee + yearlyCost + interest
@@ -121,18 +154,16 @@ export default (props) => {
       if (operatingIncome < 0) {
         carryOverLost += operatingIncome
       } else {
-        carryOverLost -= operatingIncome
+        carryOverLost = Math.min(carryOverLost + operatingIncome, 0)
       }
 
       const taxableIncome = Math.max(operatingIncome + carryOverLost, 0)
-      if (taxableIncome < 0) {
-        carryYears = 0
-      } else {
+      if (carryOverLost < 0 && taxableIncome < 0) {
         carryYears += 1
       }
 
       // reset if it passed 10 years
-      if (carryYears > 10) {
+      if (carryYears > 10 || carryOverLost === 0) {
         carryOverLost = 0
         carryYears = 0
       }
@@ -154,9 +185,10 @@ export default (props) => {
         rentIncome,
         managementFee: -managementFee,
         maintainanceFee: -maintainanceFee,
-        yearlyCost: -yearlyCost,
+        yearlyCost: currentYear === 1 ? -(yearlyCost + purchaseCost) : -yearlyCost,
         reformExpense: -reformExpense,
         emptyRoomLoss: -emptyRoomLoss,
+        depreciationAssets,
         depreciation: -depreciation,
         principalPayment: -principalPayment,
         interest: -interest,

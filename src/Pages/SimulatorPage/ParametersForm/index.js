@@ -142,6 +142,7 @@ const ParameterForm = ({ paramStore }) => {
       <EuiSpacer size="s" />
 
       <EuiAccordion
+        initialIsOpen
         id="detailSetting"
         buttonContent="詳細設定"
       >
@@ -269,6 +270,29 @@ const ParameterForm = ({ paramStore }) => {
               compressed
             />
           </>
+        </EuiFormRow>
+
+        <EuiFormRow label="償却比例" display="columnCompressed">
+          <EuiFlexGroup>
+            <EuiFlexItem>
+              <EuiFieldText
+                value={paramStore.langDepreciationRatio}
+                onChange={(evt) => { paramStore.saveParams({ langDepreciationRatio: evt.target.value }) }}
+                prepend="土地"
+                append="%"
+                compressed
+              />
+            </EuiFlexItem>
+            <EuiFlexItem>
+              <EuiFieldText
+                value={paramStore.propertyDepreciationRatio}
+                onChange={(evt) => { paramStore.saveParams({ propertyDepreciationRatio: evt.target.value }) }}
+                prepend="建物"
+                append="%"
+                compressed
+              />
+            </EuiFlexItem>
+          </EuiFlexGroup>
         </EuiFormRow>
 
       </EuiAccordion>

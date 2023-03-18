@@ -22,12 +22,10 @@ export default (props) => {
   const buildingPrice = ((buildingSize * reconstructurePrice) / year) * remainingYear
   const rentIncome = (price * (profitRate / 100))
   const pureProfit = items.reduce((acc, item) => {
-    return acc + (item.cashflow + Math.abs(item.principalPayment))
+    return acc + ((item.cashflow + Math.abs(item.principalPayment)) / (1.04 ** item.year))
   }, 0)
-  const buildingRemainingPrice = items.reduce((acc, item) => {
-    return acc - item.depreciation
-  }, buildingPrice)
-  const profitPrice = pureProfit + (landPrice) + (buildingRemainingPrice)
+  const sellingPrice = price / (1.04 ** items[items.length - 1].year)
+  const profitPrice = pureProfit + sellingPrice
 
   // loan
   const loanAmount = price - selfCapital

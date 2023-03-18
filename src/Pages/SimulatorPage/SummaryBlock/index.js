@@ -64,7 +64,7 @@ const SummaryBlock = ({ paramStore }) => {
           <EuiPanel>
             <EuiStat
               title={formatPrice(profitPrice)}
-              description="収益価格（DCF）"
+              description="収益価格（DCF: 4%）"
               textAlign="right"
               isLoading={price === 0}
             />

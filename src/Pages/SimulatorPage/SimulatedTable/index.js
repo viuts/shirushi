@@ -56,7 +56,7 @@ const SimulatedTable = ({ paramStore }) => {
     },
     {
       field: 'yearlyCost',
-      name: '年間諸経費',
+      name: '諸経費',
       render: formatMoney,
     },
     {
@@ -69,6 +69,11 @@ const SimulatedTable = ({ paramStore }) => {
       name: '返済利息',
       render: formatMoney,
     },
+    // {
+    //   field: 'depreciationAssets',
+    //   name: '償却資産',
+    //   render: formatMoney,
+    // },
     {
       field: 'depreciation',
       name: '減価償却',

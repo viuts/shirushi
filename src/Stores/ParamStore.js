@@ -44,9 +44,9 @@ class ParamStore {
 
   @observable loanDuration = 20
 
-  @observable rentRate = 80
+  @observable rentRate = 95
 
-  @observable rentDecreaseRate = 1
+  @observable rentDecreaseRate = 0.5
 
   // Cost
   @observable managementCost = 5
@@ -68,6 +68,10 @@ class ParamStore {
   @observable reformEvery = ''
 
   @observable reformFee = ''
+
+  @observable langDepreciationRatio = 75
+
+  @observable propertyDepreciationRatio = 25
 
   @action saveParams = (params) => {
     Object.keys(params).forEach((key) => {
