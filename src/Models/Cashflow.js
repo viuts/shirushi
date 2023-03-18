@@ -88,7 +88,6 @@ export default (props) => {
     return item
   })
 
-  console.log(depreciations)
   const yearlyIncomes = []
   const yearlyItems = Array(totalMonths / 12).fill(1)
     .map((v, index) => {
