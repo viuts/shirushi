@@ -12,6 +12,8 @@ export default (props) => {
     selfCapital,
     landSize,
     roadPrice,
+    purchaseCost,
+    initialReformFee,
   } = _.mapValues(props, Number)
 
   const items = Cashflow(props)
@@ -28,8 +30,8 @@ export default (props) => {
   const profitPrice = pureProfit + sellingPrice
 
   // loan
-  const loanAmount = price - selfCapital
-  const repayRate = ((items[0].interest + items[0].principalPayment) / rentIncome) * 100
+  const loanAmount = price + purchaseCost + initialReformFee - selfCapital
+  const repayRate = (Math.abs((items[0].interest + items[0].principalPayment)) / rentIncome) * 100
 
   let remainingLoan = loanAmount
   let libilityRecoverYears = items[items.length - 1].year
@@ -42,11 +44,14 @@ export default (props) => {
     }
   }
 
+  const roi = ((_.sumBy(items, item => item.cashflow) / items.length) / selfCapital) * 100
+
   return {
     landPrice,
     buildingPrice,
     profitPrice,
     repayRate,
     libilityRecoverYears,
+    roi,
   }
 }

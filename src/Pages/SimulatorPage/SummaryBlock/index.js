@@ -25,6 +25,7 @@ const SummaryBlock = ({ paramStore }) => {
     profitPrice,
     repayRate,
     libilityRecoverYears,
+    roi,
   } = PropertySummary(paramStore)
 
   return (
@@ -64,7 +65,7 @@ const SummaryBlock = ({ paramStore }) => {
           <EuiPanel>
             <EuiStat
               title={formatPrice(profitPrice)}
-              description="収益価格（DCF: 4%）"
+              description="収益価格 (DCF: 4%)"
               textAlign="right"
               isLoading={price === 0}
             />
@@ -77,6 +78,16 @@ const SummaryBlock = ({ paramStore }) => {
               description="返済比率"
               textAlign="right"
               isLoading={repayRate === 0}
+            />
+          </EuiPanel>
+        </EuiFlexItem>
+        <EuiFlexItem>
+          <EuiPanel>
+            <EuiStat
+              title={`${roi.toFixed(1)}%`}
+              description="ROI"
+              textAlign="right"
+              isLoading={roi === 0}
             />
           </EuiPanel>
         </EuiFlexItem>

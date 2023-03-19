@@ -9,7 +9,8 @@ class ParamStore {
 
     reaction(() => this.price, () => {
       if (Number(this.price) > 0) {
-        this.purchaseCost = (Number(this.price) * 0.07).toFixed(2)
+        this.purchaseCost = Number((Number(this.price) * 0.07).toFixed(2))
+        this.selfCapital = Number((this.purchaseCost + Number(this.price) * 0.1).toFixed(2))
       }
     })
   }
