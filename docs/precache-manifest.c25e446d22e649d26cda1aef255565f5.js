@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "482c458aae0ea9ef08f07a6a700a3341",
+    "revision": "9dbd8ca1d1c831ec053b1b8ad8d38723",
     "url": "https://viuts.github.io/shirushi/index.html"
   },
   {
@@ -1516,12 +1516,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "https://viuts.github.io/shirushi/static/js/icon.wrench-js.447c5a5a.chunk.js"
   },
   {
-    "revision": "75611e0c8dd8f52a87bb",
-    "url": "https://viuts.github.io/shirushi/static/js/main.5ae2dc64.chunk.js"
+    "revision": "219710a948fcc50d1a65",
+    "url": "https://viuts.github.io/shirushi/static/js/main.a7e292b7.chunk.js"
   },
   {
     "revision": "4e0e34f265fae8f33b01b27ae29d9d6f",
-    "url": "https://viuts.github.io/shirushi/static/js/main.5ae2dc64.chunk.js.LICENSE.txt"
+    "url": "https://viuts.github.io/shirushi/static/js/main.a7e292b7.chunk.js.LICENSE.txt"
   },
   {
     "revision": "c80f48655e84aefab875",
