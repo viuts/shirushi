@@ -13,7 +13,6 @@ export default (props) => {
     landSize,
     roadPrice,
     purchaseCost,
-    initialReformFee,
   } = _.mapValues(props, Number)
 
   const items = Cashflow(props)
