@@ -30,10 +30,11 @@ const SimulatorPage = ({ paramStore }) => {
     profitRate,
     elapsedYear,
     buildingSize,
+    loanDuration,
   } = paramStore
 
   const renderRightBlock = () => {
-    if (price === '' || profitRate === '' || elapsedYear === '' || buildingSize === '') {
+    if (price === '' || profitRate === '' || elapsedYear === '' || buildingSize === '' || loanDuration === '') {
       return (
         <EuiPanel>
           <EuiEmptyPrompt

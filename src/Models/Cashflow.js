@@ -25,7 +25,7 @@ export default (props) => {
     propertyDepreciationRatio,
   } = _.mapValues(props, Number)
 
-  const loanAmount = Math.max(price - selfCapital, 0)
+  const loanAmount = Math.max(price + purchaseCost - selfCapital, 0)
   const monthlyInterest = (interestRate / 100) / 12 // in percentage
 
   const totalMonths = (loanDuration) * 12
