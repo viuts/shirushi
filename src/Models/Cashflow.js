@@ -1,4 +1,4 @@
-import _, { initial } from 'lodash-es'
+import _ from 'lodash-es'
 import Constant from '../Config/Constant'
 
 export default (props) => {
