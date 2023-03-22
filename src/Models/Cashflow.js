@@ -1,4 +1,4 @@
-import _ from 'lodash-es'
+import _, { initial } from 'lodash-es'
 import Constant from '../Config/Constant'
 
 export default (props) => {
@@ -25,7 +25,7 @@ export default (props) => {
     propertyDepreciationRatio,
   } = _.mapValues(props, Number)
 
-  const loanAmount = Math.max(price + purchaseCost - selfCapital, 0)
+  const loanAmount = Math.max(price + purchaseCost + initialReformFee - selfCapital, 0)
   const monthlyInterest = (interestRate / 100) / 12 // in percentage
 
   const totalMonths = (loanDuration) * 12
@@ -112,14 +112,15 @@ export default (props) => {
         reformExpense = initialReformFee
       } else {
         reformExpense = (index - (reformAfter - 1)) % reformEvery === 0 ? reformFee : 0
-        if (reformExpense > 0) {
-          depreciations.push({
-            name: 'routineReform',
-            years: year,
-            amount: reformExpense,
-            depreciationAmount: reformExpense / year,
-          })
-        }
+      }
+
+      if (reformExpense > 0) {
+        depreciations.push({
+          name: 'routineReform',
+          years: year,
+          amount: reformExpense,
+          depreciationAmount: reformExpense / year,
+        })
       }
 
       // depreciation
@@ -146,7 +147,6 @@ export default (props) => {
 
       // payout
       const payout = managementFee + maintainanceFee + yearlyCost + interest
-      const capitalPayout = reformExpense + (currentYear === 1 ? purchaseCost : 0)
 
       // cashflow
       const operatingIncome = rentIncome - (payout + depreciation)
@@ -168,7 +168,7 @@ export default (props) => {
       }
 
       const tax = taxableIncome > 0 ? taxableIncome * (taxRate / 100) : 0
-      const cashflow = operatingIncome - tax + depreciation - principalPayment - capitalPayout
+      const cashflow = operatingIncome - tax + depreciation - principalPayment
 
       yearlyIncomes.push({
         year: currentYear,
