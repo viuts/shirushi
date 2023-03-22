@@ -184,7 +184,7 @@ export default (props) => {
         rentIncome,
         managementFee: -managementFee,
         maintainanceFee: -maintainanceFee,
-        yearlyCost: currentYear === 1 ? -(yearlyCost + purchaseCost) : -yearlyCost,
+        yearlyCost: -yearlyCost,
         reformExpense: -reformExpense,
         emptyRoomLoss: -emptyRoomLoss,
         depreciationAssets,
